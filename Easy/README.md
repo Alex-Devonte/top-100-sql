@@ -59,7 +59,7 @@ GROUP BY genre.genre;
 | Crime       | 82,129,755    |
 
 
-## Student DB
+## Students DB
 #### Insert below student details in students table and print all data of table
 
 	| ID | Name   | Gender |
