@@ -3,6 +3,10 @@
 1. [IMDb Metacritic Rating](#IMDb-Metacritic-Rating)
 2. [IMDb Max Weighted Rating](#IMDb-Max-Weighted-Rating)
 3. [Students DB](#Students-DB)
+4. [Big Countries](#Big-Countries)
+5. [Sales Executive](#Sales-Executive)
+6. [Director's Actor](#Director's-Actor)
+7. [Combine Two Tables](#Combine-Two-Tables)
 
 
 
@@ -85,3 +89,79 @@ SELECT * FROM students;
 | 3  | Kim     | F      |
 | 4  | Molina  | F      |
 | 5  | Dev     | M      |
+
+
+## Big Countries
+#### A country is big if it has an area of bigger than 3 million square km or a population of more than 25 million. Write a SQL solution to output big countries' name, population, and area.
+
+```sql
+SELECT world."name", world.population, world.area
+FROM world 
+WHERE world.area > 3000000 OR world.population > 25000000;
+```
+| name        | population   | area       |
+|-------------|--------------|------------|
+| Afghanistan | 25,500,100   | 652,230    |
+| Algeria     | 37,100,000   | 2,381,741  |
+
+
+## Sales
+#### Given three tables: salesperson, company, orders. Output all the names in the table salesperson, who didn't have sale to company 'RED'
+
+```sql
+SELECT salesperson.name 
+FROM salesperson
+WHERE salesperson.sales_id NOT IN
+(SELECT orders.sales_id FROM orders LEFT JOIN company ON orders.com_id = company.com_id WHERE company.name = 'RED');
+```
+| name |
+|------|
+| Amy  |
+| Mark |
+| Alex |
+
+## Director's Actor
+#### Write a SQL query for a report that provides the pairs (actor_id, director_id) where the actor have co-worked with the director at least 3 times. 
+
+```sql
+SELECT actor_id, director_id FROM actordirector GROUP BY actor_id, director_id HAVING count(*) >= 3;
+```
+| actor_id | director_id |
+|----------|-------------|
+|    1     |     1       |
+
+## Combine Two Tables
+#### Table: Person
+```
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| PersonId    | int     |
+| FirstName   | varchar |
+| LastName    | varchar |
++-------------+---------+
+PersonId is the primary key column for this table.
+```
+#### Table: Address
+```
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| AddressId   | int     |
+| PersonId    | int     |
+| City        | varchar |
+| State       | varchar |
++-------------+---------+
+AddressId is the primary key column for this table.
+```
+#### Write a SQL query for a report that provides the following information for each person in the Person table, regardless if there is an address for each of those people: FirstName, LastName, City, State
+
+```sql
+SELECT Person.FirstName, Person.LastName, Address.City, Address.State
+FROM Person
+LEFT JOIN Address
+    ON Person.PersonID = Address.PersonID;
+```
+| firstname | lastname | city | state |
+|-----------|----------|------|-------|
+| Allen     | Wang     |      |       |
