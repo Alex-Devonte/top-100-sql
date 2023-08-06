@@ -2,6 +2,8 @@
 
 1. [IMDb Genre](#IMDb-Genre)
 2. [Rising Temperature](#Rising-Temperature)
+3. [Consecutive Numbers](#Consecutive-Numbers)
+
 
 
 ## IMDb Genre
@@ -91,3 +93,56 @@ WHERE w1.Temperature > w2.Temperature;
 |----|
 |  2 |
 |  4 |
+
+
+## Consecutive Numbers
+```
+Table: Logs
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| num         | varchar |
++-------------+---------+
+id is the primary key for this table.
+```
+#### Write an SQL query to find all numbers that appear at least three times consecutively.
+
+```
+The query result format is in the following example:
+
+ Logs table:
++----+-----+
+| Id | Num |
++----+-----+
+| 1  | 1   |
+| 2  | 1   |
+| 3  | 1   |
+| 4  | 2   |
+| 5  | 1   |
+| 6  | 2   |
+| 7  | 2   |
++----+-----+
+
+ Result table:
++-----------------+
+| ConsecutiveNums |
++-----------------+
+| 1               |
++-----------------+
+  1 is the only number that appears consecutively for at least three times.
+```
+```sql
+SELECT DISTINCT Num AS ConsecutiveNums
+FROM (
+  SELECT Num,
+         LEAD(Num) OVER (ORDER BY Id) AS next_number,
+         LAG(Num) OVER (ORDER BY Id) AS prev_number
+  FROM Logs
+) AS sub
+WHERE Num = next_num AND Num = prev_num;
+```
+|consecutivenums |
+|----------------|
+|      1         |
