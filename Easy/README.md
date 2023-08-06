@@ -5,7 +5,7 @@
 3. [Students DB](#Students-DB)
 4. [Big Countries](#Big-Countries)
 5. [Sales Executive](#Sales-Executive)
-6. [Director's Actor](#Director's-Actor)
+6. [Directors Actor](#Directors-Actor)
 7. [Combine Two Tables](#Combine-Two-Tables)
 
 
@@ -105,7 +105,7 @@ WHERE world.area > 3000000 OR world.population > 25000000;
 | Algeria     | 37,100,000   | 2,381,741  |
 
 
-## Sales
+## Sales Executive
 #### Given three tables: salesperson, company, orders. Output all the names in the table salesperson, who didn't have sale to company 'RED'
 
 ```sql
@@ -120,7 +120,7 @@ WHERE salesperson.sales_id NOT IN
 | Mark |
 | Alex |
 
-## Director's Actor
+## Directors Actor
 #### Write a SQL query for a report that provides the pairs (actor_id, director_id) where the actor have co-worked with the director at least 3 times. 
 
 ```sql
