@@ -8,6 +8,7 @@
 6. [Directors Actor](#Directors-Actor)
 7. [Combine Two Tables](#Combine-Two-Tables)
 8. [Rank Scores](#Rank-Scores)
+9. [Warehouse Manager](#Warehouse-Manager)
 
 
 
@@ -206,4 +207,73 @@ SELECT Score , DENSE_RANK() OVER ( ORDER BY Score DESC) AS "RANK" FROM Scores;
 | 3.65  | 3    |
 | 3.65  | 3    |
 | 3.50  | 4    |
+
+
+## Warehouse Manager
+```
+Table: Warehouse
+
++--------------+---------+
+| Column Name  | Type    |
++--------------+---------+
+| name         | varchar |
+| product_id   | int     |
+| units        | int     |
++--------------+---------+
+(name, product_id) is the primary key for this table.
+Each row of this table contains the information of the products in each warehouse.
+
+
+Table: Products
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| product_id    | int     |
+| product_name  | varchar |
+| Width         | int     |
+| Length        | int     |
+| Height        | int     |
++---------------+---------+
+product_id is the primary key for this table.
+Each row of this table contains the information about the product dimensions (Width, Lenght and Height) in feets of each product.
+
+
+Warehouse table:
++------------+--------------+-------------+
+| name       | product_id   | units       |
++------------+--------------+-------------+
+| LCHouse1   | 1            | 1           |
+| LCHouse1   | 2            | 10          |
+| LCHouse1   | 3            | 5           |
+| LCHouse2   | 1            | 2           |
+| LCHouse2   | 2            | 2           |
+| LCHouse3   | 4            | 1           |
++------------+--------------+-------------+
+
+Products table:
++------------+--------------+------------+----------+-----------+
+| product_id | product_name | Width      | Length   | Height    |
++------------+--------------+------------+----------+-----------+
+| 1          | LC-TV        | 5          | 50       | 40        |
+| 2          | LC-KeyChain  | 5          | 5        | 5         |
+| 3          | LC-Phone     | 2          | 10       | 10        |
+| 4          | LC-T-Shirt   | 4          | 10       | 20        |
++------------+--------------+------------+----------+-----------+
+```
+
+#### Write an SQL query to report, How much cubic feet of volume does the inventory occupy in each warehouse.
+
+```sql
+SELECT Warehouse.name as warehouse_name, SUM(Products.Width * Products.Length * Products.Height * Warehouse.units) AS volume
+FROM Warehouse
+JOIN Products 
+    ON Warehouse.product_id = Products.product_id 
+GROUP BY warehouse_name;
+```
+| warehouse_name | volume |
+|---------------|--------|
+| LCHouse2      | 20250  |
+| LCHouse1      | 12250  |
+| LCHouse3      | 800    |
 
