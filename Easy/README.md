@@ -10,6 +10,8 @@
 8. [Rank Scores](#Rank-Scores)
 9. [Warehouse Manager](#Warehouse-Manager)
 10. [Article](#Article)
+11. [Marvel Cities](#Marvel-Cities)
+12. [Duplicate Emails](#Duplicate-Emails)
 
 
 
@@ -334,6 +336,61 @@ HAVING COUNT(DISTINCT article_id) > 1;
 |------|
 | 5    |
 | 6    |
+
+## Marvel Cities
+#### Query all columns for all marvel cities in the city table with populations larger than 100000 the countrycode for marvel is marv.
+```
+The CITY table is described as follows:
+
++---------+--------+
+| Field  |  Type    |
++---------+--------+
+|   ID    |  Number  | 
+|   Name  | Varchar  |
+|   CountryCode | Varchar  |
+|   Population |   Number  | 
++---------+--------+-------+
+```
+
+```sql
+SELECT * FROM city
+ WHERE Population > 100000 AND CountryCode = 'Marv';
+```
+|  id  |   name   | countrycode | population |
+|------|----------|-------------|------------|
+| 3878 | Wakanda  | Marv        |     202705 |
+| 3981 | Titan    | Marv        |     212705 |
+| 3667 | Starlord | Marv        |     122705 |
+|  375 | Agamato  | Marv        |    1000000 |
+
+## Duplicate Emails
+#### Write a SQL query to find all duplicate emails in a table named Person.
+```
++----+---------+
+| Id | Email   |
++----+---------+
+| 1  | a@b.com |
+| 2  | c@d.com |
+| 3  | a@b.com |
++----+---------+
+For example, your query should return the following for the above table:
+
++---------+
+| Email   |
++---------+
+| a@b.com |
++---------+
+```
+```sql
+SELECT Email 
+FROM Person 
+GROUP BY Email HAVING COUNT(Email) > 1;
+```
+
+| Email   |
+|---------|
+| a@b.com |
+
 
 
 
