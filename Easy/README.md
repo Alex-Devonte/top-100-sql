@@ -13,8 +13,8 @@
 11. [Marvel Cities](#Marvel-Cities)
 12. [Duplicate Emails](#Duplicate-Emails)
 13. [Swap Salary](#Swap-Salary)
-14. [Customer Placing Largest Number of Orders](Customer-Placing-Largest-Number-of-Orders)
-15. [Triangle Judgment](Triangle-Judgment)
+14. [Customer Placing Largest Number of Orders](#Customer-Placing-Largest-Number-of-Orders)
+15. [Triangle Judgment](#Triangle-Judgment)
 
 
 ## IMdb Metacritic Rating
