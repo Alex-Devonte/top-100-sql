@@ -12,7 +12,9 @@
 10. [Article](#Article)
 11. [Marvel Cities](#Marvel-Cities)
 12. [Duplicate Emails](#Duplicate-Emails)
-
+13. [Swap Salary](#Swap-Salary)
+14. [Customer Placing Largest Number of Orders](Customer-Placing-Largest-Number-of-Orders)
+15. [Triangle Judgment](Triangle-Judgment)
 
 
 ## IMdb Metacritic Rating
@@ -391,7 +393,120 @@ GROUP BY Email HAVING COUNT(Email) > 1;
 |---------|
 | a@b.com |
 
+## Swap Salary
 
+```
+Table: Salary
+
++-------------+----------+
+| Column Name | Type     |
++-------------+----------+
+| id          | int      |
+| name        | varchar  |
+| sex         | ENUM     |
+| salary      | int      |
++-------------+----------+
+id is the primary key for this table.
+The sex column is ENUM value of type ('m', 'f').
+The table contains information about an employee.
+```
+
+#### Swap the 'sex' values. If the sex value is 'm', then set it to 'f' and vice versa. 
+```sql
+UPDATE salary
+SET sex = CASE 
+              WHEN sex = 'm' THEN 'f'
+              WHEN sex = 'f' THEN 'm'
+              ELSE sex
+          END;
+```
+
+## Customer Placing Largest Number of Orders
+```
+Table: Orders
+
++-----------------+----------+
+| Column Name     | Type     |
++-----------------+----------+
+| order_number    | int      |
+| customer_number | int      |
++-----------------+----------+
+order_number is the primary key for this table.
+This table contains information about the order ID and the customer ID.
+
+
+It is guaranteed that exactly one customer will have placed more orders than any other customer.
+
+The query result format is in the following example:
+
+ Orders table:
++--------------+-----------------+
+| order_number | customer_number |
++--------------+-----------------+
+| 1            | 1               |
+| 2            | 2               |
+| 3            | 3               |
+| 4            | 3               |
++--------------+-----------------+
+
+Result table:
++-----------------+
+| customer_number |
++-----------------+
+| 3               |
++-----------------+
+
+The customer with number 3 has two orders, which is greater than either customer 1 or 2 because each of them only has one order. 
+So the result is customer_number 3.
+```
+
+#### Write an SQL query to find the customer_number for the customer who has placed the largest number of orders.
+```sql
+SELECT customer_number
+FROM orders
+GROUP BY customer_number
+ORDER BY COUNT(*) DESC LIMIT 1;
+```
+| customer_number |  
+|-----------------|
+|         3       |
+
+
+## Triangle Judgment
+
+```
+A pupil Tim gets homework to identify whether three line segments could possibly form a triangle.
+
+However, this assignment is very heavy because there are hundreds of records to calculate.
+
+
+| x  | y  | z  |
+|----|----|----|
+| 13 | 15 | 30 |
+| 10 | 20 | 15 |
+
+For the sample data above, your query should return the follow result:
+| x  | y  | z  | triangle |
+|----|----|----|----------|
+| 13 | 15 | 30 | No       |
+| 10 | 20 | 15 | Yes      |
+```
+ #### Could you help Tim by writing a query to judge whether these three  sides can form a triangle, assuming table triangle holds the length of the three sides x, y and z.
+ 
+ ```sql
+ SELECT x, y, z,
+       CASE 
+           WHEN (x + y) > z AND
+                (y + z) > x AND
+                (z + x) > y THEN 'Yes' 
+           ELSE 'No'
+       END triangle
+FROM triangle;
+ ```
+|  x  |  y  |  z  | triangle |
+|-----|-----|-----|----------|
+|  13 |  15 |  30 |     No   |
+|  10 |  20 |  15 |    Yes   |
 
 
 
