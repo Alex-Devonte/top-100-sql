@@ -3,6 +3,7 @@
 1. [IMDb Rating](#IMDb-Rating)
 2. [Second Highest Salary](#Second-Highest-Salary)
 3. [Recyclable and Low Fat Products](#Recyclable-and-Low-Fat-Products)
+4. [Classes with more than 5 students](#Classes-with-more-than-5-students)
 
 
 ## IMDb Rating
@@ -91,3 +92,43 @@ WHERE low_fats = 'Y' AND recyclable = 'Y';
 |------------|
 |      1     |
 |      3     |
+
+
+## Classes with more than 5 students
+```
+There is a table courses with columns: student and class
+
+For example, the table:
+
++---------+------------+
+| student | class      |
++---------+------------+
+| A       | Math       |
+| B       | English    |
+| C       | Math       |
+| D       | Biology    |
+| E       | Math       |
+| F       | Computer   |
+| G       | Math       |
+| H       | Math       |
+| I       | Math       |
++---------+------------+
+
+Should output:
+
++---------+
+| class   |
++---------+
+| Math    |
++---------+
+```
+#### Please list out all classes which have more than or equal to 5 students.
+```sql
+SELECT class 
+FROM courses 
+GROUP BY class HAVING COUNT(*) >= 5;
+```
+
+| class   |
+|---------|
+| Math    |
