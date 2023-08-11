@@ -15,6 +15,7 @@
 13. [Swap Salary](#Swap-Salary)
 14. [Customer Placing Largest Number of Orders](#Customer-Placing-Largest-Number-of-Orders)
 15. [Triangle Judgment](#Triangle-Judgment)
+16. [Products Worth Over Invoices](#Products-Worth-Over-Invoices)
 
 
 ## IMdb Metacritic Rating
@@ -509,4 +510,37 @@ FROM triangle;
 |  10 |  20 |  15 |    Yes   |
 
 
+## Products Worth Over Invoices
+```
 
+Product table:
++------------+-------+
+| product_id | name  |
++------------+-------+
+| 0          | ham   |
+| 1          | bacon |
++------------+-------+
+Invoice table:
++------------+------------+------+------+----------+----------+
+| invoice_id | product_id | rest | paid | canceled | refunded |
++------------+------------+------+------+----------+----------+
+| 23         | 0          | 2    | 0    | 5        | 0        |
+| 12         | 0          | 0    | 4    | 0        | 3        |
+| 1          | 1          | 1    | 1    | 0        | 1        |
+| 2          | 1          | 1    | 0    | 1        | 1        |
+| 3          | 1          | 0    | 1    | 1        | 1        |
+| 4          | 1          | 1    | 1    | 1        | 0        |
++------------+------------+------+------+----------+----------+
+```
+#### Write an SQL query that will, for all products, return each product name with total amount due, paid, canceled, and refunded across all invoices.
+```sql
+SELECT product.name, SUM(invoice.rest) as rest, SUM(invoice.paid) as paid, SUM(invoice.canceled) as canceled, SUM(invoice.refunded) as refunded
+FROM invoice 
+JOIN product 
+    ON invoice.product_id = product.product_id 
+GROUP BY name;
+```
+|   name   |  rest  |  paid  |  canceled  |  refunded  |
+|----------|--------|--------|------------|------------|
+|  bacon   |    3   |    3   |      3     |      3     |
+|   ham    |    2   |    4   |      5     |      3     |
